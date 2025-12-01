@@ -6,6 +6,7 @@ edition = "2024"
 [dependencies]
 tokio = { version = "1.48.0", features = ["rt", "rt-multi-thread", "macros"] }
 neo4rs = "0.9.0-rc.9"
+petgraph = "0.8.3"
 
 [lib]
 name = "rust_het_graph"

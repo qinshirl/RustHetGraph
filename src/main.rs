@@ -1,10 +1,10 @@
-use rust_het_graph::load_graph;
+use rust_het_graph::{convert_graph_2_index_weight, load_graph};
 
 #[tokio::main]
 async fn main() {
-    let (node_map, relation_map) = load_graph().await;
-    for (_, node) in node_map {
-        println!("{:?}",node.get_properties());
-    }
+    let graph = load_graph().await;
+    println!("{:?}", graph);
     println!("load finish");
+    let graph = convert_graph_2_index_weight(graph);
+    println!("{:?}", graph);
 }
