@@ -2,7 +2,6 @@ use petgraph::dot::Dot;
 use petgraph::algo::dijkstra;
 use rust_het_graph::{convert_adjacent_list_2_csr, convert_graph_2_index_weight, delete_graph, load_graph_from_neo4j, load_graph_to_neo4j};
 use clap::{Parser, Subcommand};
-use petgraph::graph::NodeIndex;
 
 #[derive(Subcommand, Debug)]
 enum Commands {
