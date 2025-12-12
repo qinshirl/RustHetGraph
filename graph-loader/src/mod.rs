@@ -1,6 +1,9 @@
 use std::collections::HashMap;
 use neo4rs::*;
+use petgraph::csr::Csr;
+use petgraph::Directed;
 use petgraph::graph::{DiGraph, NodeIndex};
+use petgraph::visit::IntoEdgeReferences;
 
 pub async fn load_graph() -> DiGraph<BoltNode, BoltRelation> {
     let uri = "127.0.0.1:7687";
@@ -46,4 +49,18 @@ pub fn convert_graph_2_index_weight(graph: DiGraph<BoltNode, BoltRelation>) -> D
         result.add_edge(idx_map[s.index()].1, idx_map[t.index()].1, weight);
     }
     result
+}
+
+pub fn convert_adjacent_list_2_csr(graph: DiGraph<i64,i64>) -> Csr<i64, i64, Directed, NodeIndex> {
+    let mut result = Csr::new();
+    for node_idx in graph.node_indices() {
+        result.add_node(graph[node_idx]);
+    }
+    for edge_idx in graph.edge_indices() {
+        let (s, t) = graph.edge_endpoints(edge_idx).unwrap();
+        let weight = graph[edge_idx];
+        result.add_edge(s,t,weight);
+    }
+    result
+
 }
