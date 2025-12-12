@@ -1,8 +1,8 @@
 use petgraph::dot::Dot;
+use petgraph::algo::dijkstra;
 use rust_het_graph::{convert_adjacent_list_2_csr, convert_graph_2_index_weight, delete_graph, load_graph_from_neo4j, load_graph_to_neo4j};
 use clap::{Parser, Subcommand};
-
-
+use petgraph::graph::NodeIndex;
 
 #[derive(Subcommand, Debug)]
 enum Commands {
@@ -12,6 +12,8 @@ enum Commands {
     Delete,
     /// display graph in neo4j
     Display,
+    /// run sssp
+    Sssp(SsspArgs),
 }
 
 #[derive(Parser, Debug)]
@@ -31,6 +33,13 @@ struct LoadArgs{
     /// edge file in csv format in the neo4j import folder
     #[arg(short='e', long="edgefile")]
     edge_file: String,
+}
+
+#[derive(clap::Args, Debug)]
+struct SsspArgs{
+    /// start node index
+    #[arg(short='s', long="start")]
+    start: usize,
 }
 
 #[tokio::main]
@@ -60,6 +69,13 @@ async fn main() {
             println!("{:?}", graph);
             println!("Dot representations");
             println!("{}",Dot::new(&graph));
+        }
+        Commands::Sssp(sssp_args) => {
+            let graph = load_graph_from_neo4j().await;
+            let graph = convert_graph_2_index_weight(graph);
+            let idx = graph.node_indices().nth(sssp_args.start).unwrap();
+            let cost_map = dijkstra(&graph, idx, None, |e| *e.weight());
+            println!("{:?}", &cost_map);
         }
     }
 }
