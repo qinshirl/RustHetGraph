@@ -1,8 +1,9 @@
 use neo4rs::*;
 use petgraph::csr::Csr;
 use petgraph::graph::{DiGraph, NodeIndex};
-use petgraph::Directed;
-use std::collections::HashMap;
+use petgraph::{Directed, Direction};
+use std::cmp::Reverse;
+use std::collections::{HashMap, VecDeque};
 
 /// load a graph from neo4j database into memory,
 /// returning a directed graph with native neo4j representation.
@@ -102,4 +103,59 @@ pub async fn load_graph_to_neo4j(node_filename: &str, edge_filename: &str){
     );
     txn.run(query(&cypher)).await.expect("load edges failed");
     txn.commit().await.unwrap();
+}
+
+pub async fn reorder_graph(graph: &DiGraph<i64, i64>) -> Vec<usize> {
+    let n = graph.node_count();
+    let mut in_deg = vec![0usize; n];
+    let mut out_deg = vec![0usize; n];
+
+    for edge in graph.raw_edges(){
+        out_deg[edge.source().index()] += 1;
+        in_deg[edge.target().index()] += 1;
+    }
+    println!("in degree {:?}", in_deg);
+    println!("out degree {:?}", out_deg);
+    let mut sv = (0..n).collect::<Vec<_>>();
+    sv.sort_by_key(|&i| (Reverse(in_deg[i]),i));
+    println!("node index in degree descending order{:?}", sv);
+
+    let mut visited = vec![false; n];
+    let mut q:VecDeque<usize> = std::collections::VecDeque::new();
+    let mut s_prime:Vec<usize> = Vec::new();
+    let mut s_sink:Vec<usize> = Vec::new();
+
+    for &root in &sv{
+        if visited[root]{continue};
+        q.push_back(root);
+        visited[root] = true;
+        while !q.is_empty() {
+            let node = q.pop_front().unwrap();
+            if out_deg[node] == 0 {
+                s_sink.push(node);
+            }
+            else {
+                s_prime.push(node);
+                let mut neighbours: Vec<_> =
+                    graph.neighbors_directed(NodeIndex::new(node), Direction::Outgoing)
+                        // convert NodeIndex to number
+                        .map(|idx| idx.index())
+                        // filter out visited
+                        .filter(|&idx| !visited[idx])
+                        .collect();
+                // sort neighbours by order in sv
+                neighbours.sort_by_key(
+                    |&idx| sv.iter().position(|&i| i == idx).unwrap()
+                );
+                // mark each neighbour as visited and push to queue
+                for neighbour in neighbours {
+                    visited[neighbour] = true;
+                    q.push_back(neighbour);
+                }
+            };
+        }
+    }
+    // put sink node at the end
+    s_prime.extend(s_sink);
+    s_prime
 }

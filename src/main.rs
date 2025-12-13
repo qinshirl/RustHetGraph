@@ -1,6 +1,6 @@
 use petgraph::dot::Dot;
 use petgraph::algo::dijkstra;
-use rust_het_graph::{convert_adjacent_list_2_csr, convert_graph_2_index_weight, delete_graph, load_graph_from_neo4j, load_graph_to_neo4j};
+use rust_het_graph::{convert_adjacent_list_2_csr, convert_graph_2_index_weight, delete_graph, load_graph_from_neo4j, load_graph_to_neo4j, reorder_graph};
 use clap::{Parser, Subcommand};
 
 #[derive(Subcommand, Debug)]
@@ -13,6 +13,8 @@ enum Commands {
     Display,
     /// run sssp
     Sssp(SsspArgs),
+    /// reorder a graph
+    Reorder,
 }
 
 #[derive(Parser, Debug)]
@@ -75,6 +77,12 @@ async fn main() {
             let idx = graph.node_indices().nth(sssp_args.start).unwrap();
             let cost_map = dijkstra(&graph, idx, None, |e| *e.weight());
             println!("{:?}", &cost_map);
+        },
+        Commands::Reorder => {
+            let graph = load_graph_from_neo4j().await;
+            let graph = convert_graph_2_index_weight(graph);
+            let new_order = reorder_graph(&graph).await;
+            println!("{:?}", new_order);
         }
     }
 }
