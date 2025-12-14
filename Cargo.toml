@@ -1,0 +1,32 @@
+[package]
+name = "RustHetGraph"
+version = "0.1.0"
+edition = "2021"
+
+[features]
+
+neo4j = ["dep:tokio", "dep:neo4rs"]
+
+[dependencies]
+cust = "0.3"
+rayon = "1.10"
+
+clap = { version = "4.5.53", features = ["derive"] }
+
+criterion = "0.8.0"
+
+tokio = { version = "1.48.0", features = ["rt", "rt-multi-thread", "macros"], optional = true }
+neo4rs = { version = "0.9.0-rc.9", optional = true }
+
+petgraph = { version = "0.8.3", optional = true }
+
+[lib]
+name = "rust_het_graph"
+path = "src/lib.rs"
+
+[[bench]]
+name = "pipeline"
+path = "benches/pipeline.rs"
+harness = false
+
+
