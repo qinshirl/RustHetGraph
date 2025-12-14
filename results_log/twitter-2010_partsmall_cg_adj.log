@@ -1,0 +1,329 @@
+warning: RustHetGraph@0.1.0: Generated PTX at /home/qinshirl/ECE1724_rust/RustHetGraph/target/release/build/RustHetGraph-27513d82d198f937/out/inc.ptx
+warning: RustHetGraph@0.1.0: Generated PTX at /home/qinshirl/ECE1724_rust/RustHetGraph/target/release/build/RustHetGraph-27513d82d198f937/out/degree.ptx
+warning: RustHetGraph@0.1.0: Generated PTX at /home/qinshirl/ECE1724_rust/RustHetGraph/target/release/build/RustHetGraph-27513d82d198f937/out/frontier_expand.ptx
+    Finished `release` profile [optimized] target(s) in 0.06s
+     Running `target/release/compare_bfs /data/webgraph/bin/twitter-2010_partsmall_cg 0 50000000 4096 --policy adj-prefix --cg-cpu /home/qinshirl/ECE1724_rust/CGgraph_wsl/build/FPS_CPU_twitter-2010_partsmall_CGgraphRV1_5_BFS.bin --cg-gpu /home/qinshirl/ECE1724_rust/CGgraph_wsl/build/FPS_GPU_twitter-2010_partsmall_CGgraphRV1_5_BFS.bin`
+[INPUT] reordered_bin_dir = "/data/webgraph/bin/twitter-2010_partsmall_cg"
+[INPUT] root_new          = 0
+[INPUT] edge_budget       = 50000000
+[INPUT] per_vertex_cap    = 4096
+[INPUT] policy            = AdjPrefix
+[INPUT] trials            = 7
+[INPUT] debug             = true
+
+[GRAPH] n=41652219, m=146836488
+
+[PLAN] Building + uploading GPU subgraph once ...
+
+[RUN] Warm-up coop BFS (plan reuse) ...
+
+[RUN] Timed coop BFS: 7 trials (median) ...
+[DEBUG] gpu_n(offsets domain) = 41652219, gpu_dst_len = 50000000, out_cap = 50000000
+[DEBUG] lvl=0 frontier=1 gpu_frontier=1 cpu_frontier=0 next=500227 gpu_enabled=true
+[DEBUG] lvl=1 frontier=500227 gpu_frontier=179172 cpu_frontier=321055 next=477810 gpu_enabled=true
+[DEBUG] lvl=2 frontier=477810 gpu_frontier=3161 cpu_frontier=474649 next=407418 gpu_enabled=true
+[DEBUG] lvl=3 frontier=407418 gpu_frontier=222 cpu_frontier=407196 next=213692 gpu_enabled=true
+[DEBUG] lvl=4 frontier=213692 gpu_frontier=13 cpu_frontier=213679 next=123542 gpu_enabled=true
+[DEBUG] lvl=5 frontier=123542 gpu_frontier=2 cpu_frontier=123540 next=64133 gpu_enabled=true
+[DEBUG] lvl=6 frontier=64133 gpu_frontier=0 cpu_frontier=64133 next=32135 gpu_enabled=true
+[DEBUG] lvl=7 frontier=32135 gpu_frontier=0 cpu_frontier=32135 next=16045 gpu_enabled=true
+[DEBUG] lvl=8 frontier=16045 gpu_frontier=0 cpu_frontier=16045 next=8217 gpu_enabled=true
+[DEBUG] lvl=9 frontier=8217 gpu_frontier=0 cpu_frontier=8217 next=4051 gpu_enabled=true
+[DEBUG] lvl=10 frontier=4051 gpu_frontier=0 cpu_frontier=4051 next=1973 gpu_enabled=true
+[DEBUG] lvl=11 frontier=1973 gpu_frontier=0 cpu_frontier=1973 next=1040 gpu_enabled=true
+[DEBUG] lvl=12 frontier=1040 gpu_frontier=0 cpu_frontier=1040 next=514 gpu_enabled=true
+[DEBUG] lvl=13 frontier=514 gpu_frontier=0 cpu_frontier=514 next=262 gpu_enabled=true
+[DEBUG] lvl=14 frontier=262 gpu_frontier=0 cpu_frontier=262 next=162 gpu_enabled=true
+[DEBUG] lvl=15 frontier=162 gpu_frontier=0 cpu_frontier=162 next=81 gpu_enabled=true
+[DEBUG] lvl=16 frontier=81 gpu_frontier=0 cpu_frontier=81 next=28 gpu_enabled=true
+[DEBUG] lvl=17 frontier=28 gpu_frontier=0 cpu_frontier=28 next=18 gpu_enabled=true
+[DEBUG] lvl=18 frontier=18 gpu_frontier=0 cpu_frontier=18 next=1 gpu_enabled=true
+[DEBUG] lvl=19 frontier=1 gpu_frontier=0 cpu_frontier=1 next=0 gpu_enabled=true
+[RUN] trial 0: 204.969 ms (reached=1851350, maxd=19)
+[DEBUG] gpu_n(offsets domain) = 41652219, gpu_dst_len = 50000000, out_cap = 50000000
+[DEBUG] lvl=0 frontier=1 gpu_frontier=1 cpu_frontier=0 next=500227 gpu_enabled=true
+[DEBUG] lvl=1 frontier=500227 gpu_frontier=179172 cpu_frontier=321055 next=477810 gpu_enabled=true
+[DEBUG] lvl=2 frontier=477810 gpu_frontier=3161 cpu_frontier=474649 next=407418 gpu_enabled=true
+[DEBUG] lvl=3 frontier=407418 gpu_frontier=222 cpu_frontier=407196 next=213692 gpu_enabled=true
+[DEBUG] lvl=4 frontier=213692 gpu_frontier=13 cpu_frontier=213679 next=123542 gpu_enabled=true
+[DEBUG] lvl=5 frontier=123542 gpu_frontier=2 cpu_frontier=123540 next=64133 gpu_enabled=true
+[DEBUG] lvl=6 frontier=64133 gpu_frontier=0 cpu_frontier=64133 next=32135 gpu_enabled=true
+[DEBUG] lvl=7 frontier=32135 gpu_frontier=0 cpu_frontier=32135 next=16045 gpu_enabled=true
+[DEBUG] lvl=8 frontier=16045 gpu_frontier=0 cpu_frontier=16045 next=8217 gpu_enabled=true
+[DEBUG] lvl=9 frontier=8217 gpu_frontier=0 cpu_frontier=8217 next=4051 gpu_enabled=true
+[DEBUG] lvl=10 frontier=4051 gpu_frontier=0 cpu_frontier=4051 next=1973 gpu_enabled=true
+[DEBUG] lvl=11 frontier=1973 gpu_frontier=0 cpu_frontier=1973 next=1040 gpu_enabled=true
+[DEBUG] lvl=12 frontier=1040 gpu_frontier=0 cpu_frontier=1040 next=514 gpu_enabled=true
+[DEBUG] lvl=13 frontier=514 gpu_frontier=0 cpu_frontier=514 next=262 gpu_enabled=true
+[DEBUG] lvl=14 frontier=262 gpu_frontier=0 cpu_frontier=262 next=162 gpu_enabled=true
+[DEBUG] lvl=15 frontier=162 gpu_frontier=0 cpu_frontier=162 next=81 gpu_enabled=true
+[DEBUG] lvl=16 frontier=81 gpu_frontier=0 cpu_frontier=81 next=28 gpu_enabled=true
+[DEBUG] lvl=17 frontier=28 gpu_frontier=0 cpu_frontier=28 next=18 gpu_enabled=true
+[DEBUG] lvl=18 frontier=18 gpu_frontier=0 cpu_frontier=18 next=1 gpu_enabled=true
+[DEBUG] lvl=19 frontier=1 gpu_frontier=0 cpu_frontier=1 next=0 gpu_enabled=true
+[RUN] trial 1: 213.275 ms (reached=1851350, maxd=19)
+[DEBUG] gpu_n(offsets domain) = 41652219, gpu_dst_len = 50000000, out_cap = 50000000
+[DEBUG] lvl=0 frontier=1 gpu_frontier=1 cpu_frontier=0 next=500227 gpu_enabled=true
+[DEBUG] lvl=1 frontier=500227 gpu_frontier=179172 cpu_frontier=321055 next=477810 gpu_enabled=true
+[DEBUG] lvl=2 frontier=477810 gpu_frontier=3161 cpu_frontier=474649 next=407418 gpu_enabled=true
+[DEBUG] lvl=3 frontier=407418 gpu_frontier=222 cpu_frontier=407196 next=213692 gpu_enabled=true
+[DEBUG] lvl=4 frontier=213692 gpu_frontier=13 cpu_frontier=213679 next=123542 gpu_enabled=true
+[DEBUG] lvl=5 frontier=123542 gpu_frontier=2 cpu_frontier=123540 next=64133 gpu_enabled=true
+[DEBUG] lvl=6 frontier=64133 gpu_frontier=0 cpu_frontier=64133 next=32135 gpu_enabled=true
+[DEBUG] lvl=7 frontier=32135 gpu_frontier=0 cpu_frontier=32135 next=16045 gpu_enabled=true
+[DEBUG] lvl=8 frontier=16045 gpu_frontier=0 cpu_frontier=16045 next=8217 gpu_enabled=true
+[DEBUG] lvl=9 frontier=8217 gpu_frontier=0 cpu_frontier=8217 next=4051 gpu_enabled=true
+[DEBUG] lvl=10 frontier=4051 gpu_frontier=0 cpu_frontier=4051 next=1973 gpu_enabled=true
+[DEBUG] lvl=11 frontier=1973 gpu_frontier=0 cpu_frontier=1973 next=1040 gpu_enabled=true
+[DEBUG] lvl=12 frontier=1040 gpu_frontier=0 cpu_frontier=1040 next=514 gpu_enabled=true
+[DEBUG] lvl=13 frontier=514 gpu_frontier=0 cpu_frontier=514 next=262 gpu_enabled=true
+[DEBUG] lvl=14 frontier=262 gpu_frontier=0 cpu_frontier=262 next=162 gpu_enabled=true
+[DEBUG] lvl=15 frontier=162 gpu_frontier=0 cpu_frontier=162 next=81 gpu_enabled=true
+[DEBUG] lvl=16 frontier=81 gpu_frontier=0 cpu_frontier=81 next=28 gpu_enabled=true
+[DEBUG] lvl=17 frontier=28 gpu_frontier=0 cpu_frontier=28 next=18 gpu_enabled=true
+[DEBUG] lvl=18 frontier=18 gpu_frontier=0 cpu_frontier=18 next=1 gpu_enabled=true
+[DEBUG] lvl=19 frontier=1 gpu_frontier=0 cpu_frontier=1 next=0 gpu_enabled=true
+[RUN] trial 2: 228.680 ms (reached=1851350, maxd=19)
+[DEBUG] gpu_n(offsets domain) = 41652219, gpu_dst_len = 50000000, out_cap = 50000000
+[DEBUG] lvl=0 frontier=1 gpu_frontier=1 cpu_frontier=0 next=500227 gpu_enabled=true
+[DEBUG] lvl=1 frontier=500227 gpu_frontier=179172 cpu_frontier=321055 next=477810 gpu_enabled=true
+[DEBUG] lvl=2 frontier=477810 gpu_frontier=3161 cpu_frontier=474649 next=407418 gpu_enabled=true
+[DEBUG] lvl=3 frontier=407418 gpu_frontier=222 cpu_frontier=407196 next=213692 gpu_enabled=true
+[DEBUG] lvl=4 frontier=213692 gpu_frontier=13 cpu_frontier=213679 next=123542 gpu_enabled=true
+[DEBUG] lvl=5 frontier=123542 gpu_frontier=2 cpu_frontier=123540 next=64133 gpu_enabled=true
+[DEBUG] lvl=6 frontier=64133 gpu_frontier=0 cpu_frontier=64133 next=32135 gpu_enabled=true
+[DEBUG] lvl=7 frontier=32135 gpu_frontier=0 cpu_frontier=32135 next=16045 gpu_enabled=true
+[DEBUG] lvl=8 frontier=16045 gpu_frontier=0 cpu_frontier=16045 next=8217 gpu_enabled=true
+[DEBUG] lvl=9 frontier=8217 gpu_frontier=0 cpu_frontier=8217 next=4051 gpu_enabled=true
+[DEBUG] lvl=10 frontier=4051 gpu_frontier=0 cpu_frontier=4051 next=1973 gpu_enabled=true
+[DEBUG] lvl=11 frontier=1973 gpu_frontier=0 cpu_frontier=1973 next=1040 gpu_enabled=true
+[DEBUG] lvl=12 frontier=1040 gpu_frontier=0 cpu_frontier=1040 next=514 gpu_enabled=true
+[DEBUG] lvl=13 frontier=514 gpu_frontier=0 cpu_frontier=514 next=262 gpu_enabled=true
+[DEBUG] lvl=14 frontier=262 gpu_frontier=0 cpu_frontier=262 next=162 gpu_enabled=true
+[DEBUG] lvl=15 frontier=162 gpu_frontier=0 cpu_frontier=162 next=81 gpu_enabled=true
+[DEBUG] lvl=16 frontier=81 gpu_frontier=0 cpu_frontier=81 next=28 gpu_enabled=true
+[DEBUG] lvl=17 frontier=28 gpu_frontier=0 cpu_frontier=28 next=18 gpu_enabled=true
+[DEBUG] lvl=18 frontier=18 gpu_frontier=0 cpu_frontier=18 next=1 gpu_enabled=true
+[DEBUG] lvl=19 frontier=1 gpu_frontier=0 cpu_frontier=1 next=0 gpu_enabled=true
+[RUN] trial 3: 224.790 ms (reached=1851350, maxd=19)
+[DEBUG] gpu_n(offsets domain) = 41652219, gpu_dst_len = 50000000, out_cap = 50000000
+[DEBUG] lvl=0 frontier=1 gpu_frontier=1 cpu_frontier=0 next=500227 gpu_enabled=true
+[DEBUG] lvl=1 frontier=500227 gpu_frontier=179172 cpu_frontier=321055 next=477810 gpu_enabled=true
+[DEBUG] lvl=2 frontier=477810 gpu_frontier=3161 cpu_frontier=474649 next=407418 gpu_enabled=true
+[DEBUG] lvl=3 frontier=407418 gpu_frontier=222 cpu_frontier=407196 next=213692 gpu_enabled=true
+[DEBUG] lvl=4 frontier=213692 gpu_frontier=13 cpu_frontier=213679 next=123542 gpu_enabled=true
+[DEBUG] lvl=5 frontier=123542 gpu_frontier=2 cpu_frontier=123540 next=64133 gpu_enabled=true
+[DEBUG] lvl=6 frontier=64133 gpu_frontier=0 cpu_frontier=64133 next=32135 gpu_enabled=true
+[DEBUG] lvl=7 frontier=32135 gpu_frontier=0 cpu_frontier=32135 next=16045 gpu_enabled=true
+[DEBUG] lvl=8 frontier=16045 gpu_frontier=0 cpu_frontier=16045 next=8217 gpu_enabled=true
+[DEBUG] lvl=9 frontier=8217 gpu_frontier=0 cpu_frontier=8217 next=4051 gpu_enabled=true
+[DEBUG] lvl=10 frontier=4051 gpu_frontier=0 cpu_frontier=4051 next=1973 gpu_enabled=true
+[DEBUG] lvl=11 frontier=1973 gpu_frontier=0 cpu_frontier=1973 next=1040 gpu_enabled=true
+[DEBUG] lvl=12 frontier=1040 gpu_frontier=0 cpu_frontier=1040 next=514 gpu_enabled=true
+[DEBUG] lvl=13 frontier=514 gpu_frontier=0 cpu_frontier=514 next=262 gpu_enabled=true
+[DEBUG] lvl=14 frontier=262 gpu_frontier=0 cpu_frontier=262 next=162 gpu_enabled=true
+[DEBUG] lvl=15 frontier=162 gpu_frontier=0 cpu_frontier=162 next=81 gpu_enabled=true
+[DEBUG] lvl=16 frontier=81 gpu_frontier=0 cpu_frontier=81 next=28 gpu_enabled=true
+[DEBUG] lvl=17 frontier=28 gpu_frontier=0 cpu_frontier=28 next=18 gpu_enabled=true
+[DEBUG] lvl=18 frontier=18 gpu_frontier=0 cpu_frontier=18 next=1 gpu_enabled=true
+[DEBUG] lvl=19 frontier=1 gpu_frontier=0 cpu_frontier=1 next=0 gpu_enabled=true
+[RUN] trial 4: 217.459 ms (reached=1851350, maxd=19)
+[DEBUG] gpu_n(offsets domain) = 41652219, gpu_dst_len = 50000000, out_cap = 50000000
+[DEBUG] lvl=0 frontier=1 gpu_frontier=1 cpu_frontier=0 next=500227 gpu_enabled=true
+[DEBUG] lvl=1 frontier=500227 gpu_frontier=179172 cpu_frontier=321055 next=477810 gpu_enabled=true
+[DEBUG] lvl=2 frontier=477810 gpu_frontier=3161 cpu_frontier=474649 next=407418 gpu_enabled=true
+[DEBUG] lvl=3 frontier=407418 gpu_frontier=222 cpu_frontier=407196 next=213692 gpu_enabled=true
+[DEBUG] lvl=4 frontier=213692 gpu_frontier=13 cpu_frontier=213679 next=123542 gpu_enabled=true
+[DEBUG] lvl=5 frontier=123542 gpu_frontier=2 cpu_frontier=123540 next=64133 gpu_enabled=true
+[DEBUG] lvl=6 frontier=64133 gpu_frontier=0 cpu_frontier=64133 next=32135 gpu_enabled=true
+[DEBUG] lvl=7 frontier=32135 gpu_frontier=0 cpu_frontier=32135 next=16045 gpu_enabled=true
+[DEBUG] lvl=8 frontier=16045 gpu_frontier=0 cpu_frontier=16045 next=8217 gpu_enabled=true
+[DEBUG] lvl=9 frontier=8217 gpu_frontier=0 cpu_frontier=8217 next=4051 gpu_enabled=true
+[DEBUG] lvl=10 frontier=4051 gpu_frontier=0 cpu_frontier=4051 next=1973 gpu_enabled=true
+[DEBUG] lvl=11 frontier=1973 gpu_frontier=0 cpu_frontier=1973 next=1040 gpu_enabled=true
+[DEBUG] lvl=12 frontier=1040 gpu_frontier=0 cpu_frontier=1040 next=514 gpu_enabled=true
+[DEBUG] lvl=13 frontier=514 gpu_frontier=0 cpu_frontier=514 next=262 gpu_enabled=true
+[DEBUG] lvl=14 frontier=262 gpu_frontier=0 cpu_frontier=262 next=162 gpu_enabled=true
+[DEBUG] lvl=15 frontier=162 gpu_frontier=0 cpu_frontier=162 next=81 gpu_enabled=true
+[DEBUG] lvl=16 frontier=81 gpu_frontier=0 cpu_frontier=81 next=28 gpu_enabled=true
+[DEBUG] lvl=17 frontier=28 gpu_frontier=0 cpu_frontier=28 next=18 gpu_enabled=true
+[DEBUG] lvl=18 frontier=18 gpu_frontier=0 cpu_frontier=18 next=1 gpu_enabled=true
+[DEBUG] lvl=19 frontier=1 gpu_frontier=0 cpu_frontier=1 next=0 gpu_enabled=true
+[RUN] trial 5: 204.757 ms (reached=1851350, maxd=19)
+[DEBUG] gpu_n(offsets domain) = 41652219, gpu_dst_len = 50000000, out_cap = 50000000
+[DEBUG] lvl=0 frontier=1 gpu_frontier=1 cpu_frontier=0 next=500227 gpu_enabled=true
+[DEBUG] lvl=1 frontier=500227 gpu_frontier=179172 cpu_frontier=321055 next=477810 gpu_enabled=true
+[DEBUG] lvl=2 frontier=477810 gpu_frontier=3161 cpu_frontier=474649 next=407418 gpu_enabled=true
+[DEBUG] lvl=3 frontier=407418 gpu_frontier=222 cpu_frontier=407196 next=213692 gpu_enabled=true
+[DEBUG] lvl=4 frontier=213692 gpu_frontier=13 cpu_frontier=213679 next=123542 gpu_enabled=true
+[DEBUG] lvl=5 frontier=123542 gpu_frontier=2 cpu_frontier=123540 next=64133 gpu_enabled=true
+[DEBUG] lvl=6 frontier=64133 gpu_frontier=0 cpu_frontier=64133 next=32135 gpu_enabled=true
+[DEBUG] lvl=7 frontier=32135 gpu_frontier=0 cpu_frontier=32135 next=16045 gpu_enabled=true
+[DEBUG] lvl=8 frontier=16045 gpu_frontier=0 cpu_frontier=16045 next=8217 gpu_enabled=true
+[DEBUG] lvl=9 frontier=8217 gpu_frontier=0 cpu_frontier=8217 next=4051 gpu_enabled=true
+[DEBUG] lvl=10 frontier=4051 gpu_frontier=0 cpu_frontier=4051 next=1973 gpu_enabled=true
+[DEBUG] lvl=11 frontier=1973 gpu_frontier=0 cpu_frontier=1973 next=1040 gpu_enabled=true
+[DEBUG] lvl=12 frontier=1040 gpu_frontier=0 cpu_frontier=1040 next=514 gpu_enabled=true
+[DEBUG] lvl=13 frontier=514 gpu_frontier=0 cpu_frontier=514 next=262 gpu_enabled=true
+[DEBUG] lvl=14 frontier=262 gpu_frontier=0 cpu_frontier=262 next=162 gpu_enabled=true
+[DEBUG] lvl=15 frontier=162 gpu_frontier=0 cpu_frontier=162 next=81 gpu_enabled=true
+[DEBUG] lvl=16 frontier=81 gpu_frontier=0 cpu_frontier=81 next=28 gpu_enabled=true
+[DEBUG] lvl=17 frontier=28 gpu_frontier=0 cpu_frontier=28 next=18 gpu_enabled=true
+[DEBUG] lvl=18 frontier=18 gpu_frontier=0 cpu_frontier=18 next=1 gpu_enabled=true
+[DEBUG] lvl=19 frontier=1 gpu_frontier=0 cpu_frontier=1 next=0 gpu_enabled=true
+[RUN] trial 6: 199.899 ms (reached=1851350, maxd=19)
+
+[RESULT] coop BFS times ms (sorted): [199.899197, 204.757409, 204.96935299999998, 213.275161, 217.45885900000002, 224.790209, 228.680059]
+[RESULT] coop BFS min/median/max = 199.899 / 213.275 / 228.680 ms
+[RESULT] coop BFS reached 1851350 / 41652219 vertices, maxd=19, levels=20
+[RESULT] subgraph: policy=AdjPrefix, m_gpu=50000000, edges_on_gpu=0.3405
+
+[CG] Reading FPS (CPU) from "/home/qinshirl/ECE1724_rust/CGgraph_wsl/build/FPS_CPU_twitter-2010_partsmall_CGgraphRV1_5_BFS.bin"
+[CG] Sanity check (CPU): sum(time_ms) vs stored_total_ms
+  CPU run 0: sum(time_ms)=66.588 ms | stored_total=66.606 ms | diff=0.018 ms
+  CPU run 1: sum(time_ms)=95.337 ms | stored_total=95.355 ms | diff=0.018 ms
+  CPU run 2: sum(time_ms)=99.699 ms | stored_total=99.718 ms | diff=0.019 ms
+[D4] CG BFS (CPU): outer runs = 3
+[D4] CG BFS (CPU)[run 0] inner records = 33, last total_time_ms = 66.606
+  CG BFS (CPU)[run 0][00] ite=1 activeV=1 activeE=3 time_ms=0.166000 total_ms=0.000000
+  CG BFS (CPU)[run 0][01] ite=2 activeV=3 activeE=11 time_ms=0.004000 total_ms=0.000000
+  CG BFS (CPU)[run 0][02] ite=3 activeV=10 activeE=68 time_ms=0.008000 total_ms=0.000000
+  CG BFS (CPU)[run 0][03] ite=4 activeV=55 activeE=266 time_ms=0.020000 total_ms=0.000000
+  CG BFS (CPU)[run 0][04] ite=5 activeV=152 activeE=1025 time_ms=0.073000 total_ms=0.000000
+  CG BFS (CPU)[run 0][05] ite=6 activeV=632 activeE=4384 time_ms=0.192000 total_ms=0.000000
+  CG BFS (CPU)[run 0][06] ite=7 activeV=2316 activeE=23346 time_ms=0.734000 total_ms=0.000000
+  CG BFS (CPU)[run 0][07] ite=8 activeV=12825 activeE=233834 time_ms=3.096000 total_ms=0.000000
+  CG BFS (CPU)[run 0][08] ite=9 activeV=54350 activeE=607773 time_ms=6.769000 total_ms=0.000000
+  CG BFS (CPU)[run 0][09] ite=10 activeV=145847 activeE=1119894 time_ms=3.289000 total_ms=0.000000
+  CG BFS (CPU)[run 0][10] ite=11 activeV=191762 activeE=1215243 time_ms=3.658000 total_ms=0.000000
+  CG BFS (CPU)[run 0][11] ite=12 activeV=181169 activeE=974542 time_ms=2.973000 total_ms=0.000000
+  CG BFS (CPU)[run 0][12] ite=13 activeV=148237 activeE=694112 time_ms=1.488000 total_ms=0.000000
+  CG BFS (CPU)[run 0][13] ite=14 activeV=108453 activeE=461248 time_ms=1.801000 total_ms=0.000000
+  CG BFS (CPU)[run 0][14] ite=15 activeV=73508 activeE=290650 time_ms=3.256000 total_ms=0.000000
+  CG BFS (CPU)[run 0][15] ite=16 activeV=47928 activeE=183236 time_ms=1.796000 total_ms=0.000000
+  CG BFS (CPU)[run 0][16] ite=17 activeV=29578 activeE=108679 time_ms=0.765000 total_ms=0.000000
+  CG BFS (CPU)[run 0][17] ite=18 activeV=18010 activeE=65726 time_ms=0.362000 total_ms=0.000000
+  CG BFS (CPU)[run 0][18] ite=19 activeV=10917 activeE=39914 time_ms=5.864000 total_ms=0.000000
+  CG BFS (CPU)[run 0][19] ite=20 activeV=6483 activeE=22423 time_ms=10.611000 total_ms=0.000000
+[D4] CG BFS (CPU)[run 1] inner records = 33, last total_time_ms = 95.355
+  CG BFS (CPU)[run 1][00] ite=1 activeV=1 activeE=5 time_ms=0.205000 total_ms=0.000000
+  CG BFS (CPU)[run 1][01] ite=2 activeV=3 activeE=21 time_ms=0.079000 total_ms=0.000000
+  CG BFS (CPU)[run 1][02] ite=3 activeV=20 activeE=118 time_ms=0.101000 total_ms=0.000000
+  CG BFS (CPU)[run 1][03] ite=4 activeV=50 activeE=296 time_ms=0.163000 total_ms=0.000000
+  CG BFS (CPU)[run 1][04] ite=5 activeV=167 activeE=1314 time_ms=0.230000 total_ms=0.000000
+  CG BFS (CPU)[run 1][05] ite=6 activeV=776 activeE=7693 time_ms=0.479000 total_ms=0.000000
+  CG BFS (CPU)[run 1][06] ite=7 activeV=4385 activeE=48409 time_ms=8.124000 total_ms=0.000000
+  CG BFS (CPU)[run 1][07] ite=8 activeV=23651 activeE=352187 time_ms=11.566000 total_ms=0.000000
+  CG BFS (CPU)[run 1][08] ite=9 activeV=91347 activeE=894854 time_ms=2.437000 total_ms=0.000000
+  CG BFS (CPU)[run 1][09] ite=10 activeV=173615 activeE=1218295 time_ms=8.325000 total_ms=0.000000
+  CG BFS (CPU)[run 1][10] ite=11 activeV=195178 activeE=1137041 time_ms=2.173000 total_ms=0.000000
+  CG BFS (CPU)[run 1][11] ite=12 activeV=165998 activeE=838116 time_ms=7.225000 total_ms=0.000000
+  CG BFS (CPU)[run 1][12] ite=13 activeV=130710 activeE=586510 time_ms=2.034000 total_ms=0.000000
+  CG BFS (CPU)[run 1][13] ite=14 activeV=93143 activeE=383306 time_ms=3.044000 total_ms=0.000000
+  CG BFS (CPU)[run 1][14] ite=15 activeV=62642 activeE=245793 time_ms=1.256000 total_ms=0.000000
+  CG BFS (CPU)[run 1][15] ite=16 activeV=38998 activeE=144748 time_ms=0.516000 total_ms=0.000000
+  CG BFS (CPU)[run 1][16] ite=17 activeV=24022 activeE=88417 time_ms=1.197000 total_ms=0.000000
+  CG BFS (CPU)[run 1][17] ite=18 activeV=14949 activeE=54302 time_ms=0.693000 total_ms=0.000000
+  CG BFS (CPU)[run 1][18] ite=19 activeV=8726 activeE=31492 time_ms=0.559000 total_ms=0.000000
+  CG BFS (CPU)[run 1][19] ite=20 activeV=5345 activeE=18789 time_ms=11.262000 total_ms=0.000000
+[D4] CG BFS (CPU)[run 2] inner records = 34, last total_time_ms = 99.718
+  CG BFS (CPU)[run 2][00] ite=1 activeV=1 activeE=5 time_ms=0.385000 total_ms=0.000000
+  CG BFS (CPU)[run 2][01] ite=2 activeV=3 activeE=20 time_ms=0.112000 total_ms=0.000000
+  CG BFS (CPU)[run 2][02] ite=3 activeV=20 activeE=109 time_ms=0.172000 total_ms=0.000000
+  CG BFS (CPU)[run 2][03] ite=4 activeV=61 activeE=433 time_ms=0.338000 total_ms=0.000000
+  CG BFS (CPU)[run 2][04] ite=5 activeV=270 activeE=1748 time_ms=0.289000 total_ms=0.000000
+  CG BFS (CPU)[run 2][05] ite=6 activeV=908 activeE=7290 time_ms=0.506000 total_ms=0.000000
+  CG BFS (CPU)[run 2][06] ite=7 activeV=4536 activeE=49186 time_ms=16.491000 total_ms=0.000000
+  CG BFS (CPU)[run 2][07] ite=8 activeV=23549 activeE=334533 time_ms=4.453000 total_ms=0.000000
+  CG BFS (CPU)[run 2][08] ite=9 activeV=86528 activeE=840849 time_ms=7.256000 total_ms=0.000000
+  CG BFS (CPU)[run 2][09] ite=10 activeV=168014 activeE=1211815 time_ms=9.044000 total_ms=0.000000
+  CG BFS (CPU)[run 2][10] ite=11 activeV=194305 activeE=1154151 time_ms=3.881000 total_ms=0.000000
+  CG BFS (CPU)[run 2][11] ite=12 activeV=167879 activeE=855959 time_ms=11.302000 total_ms=0.000000
+  CG BFS (CPU)[run 2][12] ite=13 activeV=130194 activeE=591016 time_ms=2.266000 total_ms=0.000000
+  CG BFS (CPU)[run 2][13] ite=14 activeV=96832 activeE=397078 time_ms=9.145000 total_ms=0.000000
+  CG BFS (CPU)[run 2][14] ite=15 activeV=63818 activeE=250327 time_ms=1.291000 total_ms=0.000000
+  CG BFS (CPU)[run 2][15] ite=16 activeV=40793 activeE=153658 time_ms=2.460000 total_ms=0.000000
+  CG BFS (CPU)[run 2][16] ite=17 activeV=25400 activeE=92646 time_ms=0.543000 total_ms=0.000000
+  CG BFS (CPU)[run 2][17] ite=18 activeV=15444 activeE=56788 time_ms=1.033000 total_ms=0.000000
+  CG BFS (CPU)[run 2][18] ite=19 activeV=9403 activeE=33925 time_ms=0.560000 total_ms=0.000000
+  CG BFS (CPU)[run 2][19] ite=20 activeV=5557 activeE=19424 time_ms=0.500000 total_ms=0.000000
+
+[D5] Summary: BFS vs CG CPU
+  Rust:      213.275 ms | reached  1851350 | maxDist 19
+  CG CPU:     95.355 ms (median over 3 runs; min 66.606, max 99.718) | median steps 33
+  Ratio: CG_median / Rust = 0.447x
+
+[CG] Reading FPS (GPU) from "/home/qinshirl/ECE1724_rust/CGgraph_wsl/build/FPS_GPU_twitter-2010_partsmall_CGgraphRV1_5_BFS.bin"
+[CG] Sanity check (GPU): sum(time_ms) vs stored_total_ms
+  GPU run 0: sum(time_ms)=8.638 ms | stored_total=8.664 ms | diff=0.026 ms
+  GPU run 1: sum(time_ms)=12.912 ms | stored_total=12.930 ms | diff=0.018 ms
+  GPU run 2: sum(time_ms)=22.100 ms | stored_total=22.122 ms | diff=0.022 ms
+[D4] CG BFS (GPU): outer runs = 3
+[D4] CG BFS (GPU)[run 0] inner records = 33, last total_time_ms = 8.664
+  CG BFS (GPU)[run 0][00] ite=1 activeV=1 activeE=5 time_ms=0.227000 total_ms=0.000000
+  CG BFS (GPU)[run 0][01] ite=2 activeV=3 activeE=21 time_ms=0.198000 total_ms=0.000000
+  CG BFS (GPU)[run 0][02] ite=3 activeV=20 activeE=118 time_ms=0.181000 total_ms=0.000000
+  CG BFS (GPU)[run 0][03] ite=4 activeV=50 activeE=296 time_ms=0.188000 total_ms=0.000000
+  CG BFS (GPU)[run 0][04] ite=5 activeV=167 activeE=1314 time_ms=0.187000 total_ms=0.000000
+  CG BFS (GPU)[run 0][05] ite=6 activeV=776 activeE=7693 time_ms=0.184000 total_ms=0.000000
+  CG BFS (GPU)[run 0][06] ite=7 activeV=4385 activeE=48409 time_ms=0.236000 total_ms=0.000000
+  CG BFS (GPU)[run 0][07] ite=8 activeV=23651 activeE=352187 time_ms=0.288000 total_ms=0.000000
+  CG BFS (GPU)[run 0][08] ite=9 activeV=91347 activeE=894854 time_ms=0.331000 total_ms=0.000000
+  CG BFS (GPU)[run 0][09] ite=10 activeV=173615 activeE=1218295 time_ms=0.340000 total_ms=0.000000
+  CG BFS (GPU)[run 0][10] ite=11 activeV=195178 activeE=1137041 time_ms=0.345000 total_ms=0.000000
+  CG BFS (GPU)[run 0][11] ite=12 activeV=165998 activeE=838116 time_ms=0.338000 total_ms=0.000000
+  CG BFS (GPU)[run 0][12] ite=13 activeV=130710 activeE=586510 time_ms=0.316000 total_ms=0.000000
+  CG BFS (GPU)[run 0][13] ite=14 activeV=93143 activeE=383306 time_ms=0.325000 total_ms=0.000000
+  CG BFS (GPU)[run 0][14] ite=15 activeV=62642 activeE=245793 time_ms=0.328000 total_ms=0.000000
+  CG BFS (GPU)[run 0][15] ite=16 activeV=38998 activeE=144748 time_ms=0.288000 total_ms=0.000000
+  CG BFS (GPU)[run 0][16] ite=17 activeV=24022 activeE=88417 time_ms=0.415000 total_ms=0.000000
+  CG BFS (GPU)[run 0][17] ite=18 activeV=14949 activeE=54302 time_ms=0.332000 total_ms=0.000000
+  CG BFS (GPU)[run 0][18] ite=19 activeV=8726 activeE=31492 time_ms=0.640000 total_ms=0.000000
+  CG BFS (GPU)[run 0][19] ite=20 activeV=5345 activeE=18789 time_ms=0.237000 total_ms=0.000000
+[D4] CG BFS (GPU)[run 1] inner records = 33, last total_time_ms = 12.930
+  CG BFS (GPU)[run 1][00] ite=1 activeV=1 activeE=3 time_ms=1.171000 total_ms=0.000000
+  CG BFS (GPU)[run 1][01] ite=2 activeV=3 activeE=11 time_ms=0.450000 total_ms=0.000000
+  CG BFS (GPU)[run 1][02] ite=3 activeV=10 activeE=68 time_ms=0.454000 total_ms=0.000000
+  CG BFS (GPU)[run 1][03] ite=4 activeV=55 activeE=266 time_ms=0.452000 total_ms=0.000000
+  CG BFS (GPU)[run 1][04] ite=5 activeV=152 activeE=1025 time_ms=0.450000 total_ms=0.000000
+  CG BFS (GPU)[run 1][05] ite=6 activeV=632 activeE=4384 time_ms=0.512000 total_ms=0.000000
+  CG BFS (GPU)[run 1][06] ite=7 activeV=2316 activeE=23346 time_ms=1.078000 total_ms=0.000000
+  CG BFS (GPU)[run 1][07] ite=8 activeV=12825 activeE=233834 time_ms=0.785000 total_ms=0.000000
+  CG BFS (GPU)[run 1][08] ite=9 activeV=54350 activeE=607773 time_ms=0.729000 total_ms=0.000000
+  CG BFS (GPU)[run 1][09] ite=10 activeV=145847 activeE=1119894 time_ms=1.198000 total_ms=0.000000
+  CG BFS (GPU)[run 1][10] ite=11 activeV=191762 activeE=1215243 time_ms=0.505000 total_ms=0.000000
+  CG BFS (GPU)[run 1][11] ite=12 activeV=181169 activeE=974542 time_ms=0.313000 total_ms=0.000000
+  CG BFS (GPU)[run 1][12] ite=13 activeV=148237 activeE=694112 time_ms=0.314000 total_ms=0.000000
+  CG BFS (GPU)[run 1][13] ite=14 activeV=108453 activeE=461248 time_ms=0.301000 total_ms=0.000000
+  CG BFS (GPU)[run 1][14] ite=15 activeV=73508 activeE=290650 time_ms=0.303000 total_ms=0.000000
+  CG BFS (GPU)[run 1][15] ite=16 activeV=47928 activeE=183236 time_ms=0.270000 total_ms=0.000000
+  CG BFS (GPU)[run 1][16] ite=17 activeV=29578 activeE=108679 time_ms=0.279000 total_ms=0.000000
+  CG BFS (GPU)[run 1][17] ite=18 activeV=18010 activeE=65726 time_ms=0.274000 total_ms=0.000000
+  CG BFS (GPU)[run 1][18] ite=19 activeV=10917 activeE=39914 time_ms=0.271000 total_ms=0.000000
+  CG BFS (GPU)[run 1][19] ite=20 activeV=6483 activeE=22423 time_ms=0.218000 total_ms=0.000000
+[D4] CG BFS (GPU)[run 2] inner records = 36, last total_time_ms = 22.122
+  CG BFS (GPU)[run 2][00] ite=1 activeV=1 activeE=1 time_ms=1.007000 total_ms=0.000000
+  CG BFS (GPU)[run 2][01] ite=2 activeV=1 activeE=5 time_ms=0.472000 total_ms=0.000000
+  CG BFS (GPU)[run 2][02] ite=3 activeV=5 activeE=12 time_ms=0.463000 total_ms=0.000000
+  CG BFS (GPU)[run 2][03] ite=4 activeV=6 activeE=37 time_ms=0.445000 total_ms=0.000000
+  CG BFS (GPU)[run 2][04] ite=5 activeV=21 activeE=79 time_ms=0.456000 total_ms=0.000000
+  CG BFS (GPU)[run 2][05] ite=6 activeV=46 activeE=304 time_ms=0.446000 total_ms=0.000000
+  CG BFS (GPU)[run 2][06] ite=7 activeV=183 activeE=1483 time_ms=0.475000 total_ms=0.000000
+  CG BFS (GPU)[run 2][07] ite=8 activeV=769 activeE=6125 time_ms=0.456000 total_ms=0.000000
+  CG BFS (GPU)[run 2][08] ite=9 activeV=4122 activeE=34686 time_ms=0.641000 total_ms=0.000000
+  CG BFS (GPU)[run 2][09] ite=10 activeV=17270 activeE=179633 time_ms=0.730000 total_ms=0.000000
+  CG BFS (GPU)[run 2][10] ite=11 activeV=72969 activeE=817416 time_ms=0.834000 total_ms=0.000000
+  CG BFS (GPU)[run 2][11] ite=12 activeV=155282 activeE=1150430 time_ms=1.209000 total_ms=0.000000
+  CG BFS (GPU)[run 2][12] ite=13 activeV=189080 activeE=1180957 time_ms=0.694000 total_ms=0.000000
+  CG BFS (GPU)[run 2][13] ite=14 activeV=170590 activeE=911479 time_ms=0.728000 total_ms=0.000000
+  CG BFS (GPU)[run 2][14] ite=15 activeV=140923 activeE=652879 time_ms=0.764000 total_ms=0.000000
+  CG BFS (GPU)[run 2][15] ite=16 activeV=103572 activeE=434310 time_ms=0.729000 total_ms=0.000000
+  CG BFS (GPU)[run 2][16] ite=17 activeV=70019 activeE=275072 time_ms=0.712000 total_ms=0.000000
+  CG BFS (GPU)[run 2][17] ite=18 activeV=45388 activeE=176112 time_ms=0.735000 total_ms=0.000000
+  CG BFS (GPU)[run 2][18] ite=19 activeV=28310 activeE=104336 time_ms=0.837000 total_ms=0.000000
+  CG BFS (GPU)[run 2][19] ite=20 activeV=17395 activeE=63124 time_ms=1.016000 total_ms=0.000000
+
+[D5] Summary: BFS vs CG GPU
+  Rust:      213.275 ms | reached  1851350 | maxDist 19
+  CG CPU:     12.930 ms (median over 3 runs; min 8.664, max 22.122) | median steps 33
+  Ratio: CG_median / Rust = 0.061x
