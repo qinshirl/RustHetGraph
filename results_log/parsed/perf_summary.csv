@@ -1,0 +1,2 @@
+file,policy,n,m,m_gpu,edges_on_gpu,rust_coop_min_ms,rust_coop_median_ms,rust_coop_max_ms,cg_cpu_median_ms,cg_cpu_min_ms,cg_cpu_max_ms,cg_gpu_median_ms,cg_gpu_min_ms,cg_gpu_max_ms,levels,reached,maxd
+twitter-2010_partsmall_cg_adj.log,AdjPrefix,41652219,146836488,50000000,0.3405,199.899,213.275,228.68,95.355,66.606,99.718,12.93,8.664,22.122,20,1851350,19

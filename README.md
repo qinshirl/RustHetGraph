@@ -8,8 +8,8 @@ A prototype project that explores **heterogeneous graph processing in Rust**, in
 
 ## Team Members
 
-* **Shirley Qin** — *Student #*: 1004555297 — Email: `shirley.qin@mail.utoronto.ca`
-* **Guanqun Dong** — *Student #*:  — Email: `guanqun.dong@mail.utoronto.ca`
+* **Shirley Qin** - *Student #*: 1004555297 - Email: `shirley.qin@mail.utoronto.ca`
+* **Guanqun Dong** - *Student #*:  - Email: `guanqun.dong@mail.utoronto.ca`
 
 ---
 
@@ -287,9 +287,9 @@ All datasets originate from **edge-list text files** and are converted into CSR 
 
 The edge-list to CSR conversion step produces the following binary files:
 
-* `*_csrOffset_u32.bin` — CSR row pointer array
-* `*_csrDest_u32.bin` — CSR adjacency list
-* `*_csrWeight_u32.bin` — edge weights (if present; otherwise defaulted)
+* `*_csrOffset_u32.bin` - CSR row pointer array
+* `*_csrDest_u32.bin` - CSR adjacency list
+* `*_csrWeight_u32.bin` - edge weights (if present; otherwise defaulted)
 
 These files together define the CSR graph representation used by RustHetGraph.
 
@@ -339,8 +339,7 @@ The experimental machine has limited memory resources:
 During preprocessing (particularly CGgraph-style rank and reorder phases), memory usage scales with both vertex and edge counts.
 For the Twitter-2010 dataset:
 
-* A larger subset (`twitter-2010_part`, ≈489M edges) exceeds available memory,
-* causing the kernel to terminate the process due to out-of-memory (OOM) conditions.
+* The original (`twitter-2010`, ≈1.47B edges) exceeds available memory, causing the kernel to terminate the process due to out-of-memory (OOM) conditions.
 * The smaller subset (`twitter-2010_partsmall`) reduces peak memory usage sufficiently to complete preprocessing and BFS execution.
 
 This limitation motivated the use of a reduced dataset for reproducible evaluation.
@@ -350,28 +349,41 @@ This limitation motivated the use of a reduced dataset for reproducible evaluati
 
 ## Performance Evaluation (BFS)
 
-**Raw results:** full terminal outputs (per-trial timings, frontier statistics, and CGgraph parses) are stored in `results_log/`.
+**Raw results.**
+Complete terminal outputs-including per-trial timings, frontier statistics, and parsed CGgraph reference logs-are stored in `results_log/`.
+
+---
 
 ### Experimental setup
 
-We evaluate the cooperative **CPU–GPU BFS** using `compare_bfs` on `twitter-2010_partsmall` with fixed parameters:
+We evaluate the cooperative **CPU–GPU BFS** implementation using the `compare_bfs` binary on the `twitter-2010_partsmall` dataset with fixed parameters:
 
-* Root = 0
-* Edge budget = 50,000,000
-* Per-vertex cap = 4096
-* Trials = 7 (median reported)
+* Root vertex: `0`
+* Edge budget: `50,000,000`
+* Per-vertex cap: `4096`
+* Trials: `7` (median reported)
 
-The GPU subgraph is built and uploaded once; a warm-up run precedes timed trials.
-Dataset statistics printed by the binary: `n = 41,652,219`, `m = 146,836,488`, with `edges_on_gpu ≈ 0.3405`.
+The GPU subgraph is constructed and uploaded once per run. A warm-up execution precedes timed trials to amortize initialization costs.
 
-Optional CGgraph CPU/GPU timing logs are parsed for reference comparison.
+Dataset statistics reported by the binary:
+
+* Vertices: `n = 41,652,219`
+* Edges: `m = 146,836,488`
+* GPU-resident edges: `edges_on_gpu ≈ 0.3405`
+
+Optional CGgraph CPU and GPU BFS binaries are executed on the same input for reference comparison.
 
 ---
 
 ### Policies evaluated
 
-* **VertexPrefix**: GPU subgraph induced by a prefix of reordered vertices.
-* **AdjPrefix**: GPU subgraph induced by a prefix of the adjacency stream up to the edge budget.
+* **VertexPrefix**
+  GPU subgraph induced by a prefix of reordered vertices.
+
+* **AdjPrefix**
+  GPU subgraph induced by a prefix of the reordered adjacency stream up to the edge budget.
+
+These policies lead to different effective traversal depths and workloads.
 
 ---
 
@@ -384,23 +396,99 @@ Optional CGgraph CPU/GPU timing logs are parsed for reference comparison.
 
 
 
-* **Policy-dependent work:** `AdjPrefix` explores significantly deeper and reaches more vertices, increasing CPU residual work and runtime. The two policies therefore do **not** perform equal traversal work.
-* **GPU utilization behavior:** Under `AdjPrefix`, the GPU frontier rapidly drops to zero after early levels, shifting later expansion entirely to the CPU.
-* **Relative performance:** CGgraph’s GPU BFS remains substantially faster. RustHetGraph’s current cooperative pipeline is dominated by kernel launch overheads, synchronization, and CPU fallback handling.
-* **Takeaway:** The implementation demonstrates correct, configurable CPU–GPU cooperation. Performance is presently bounded by subgraph policy effectiveness and runtime overheads rather than raw GPU throughput.
+## Frontier dynamics and GPU utilization
 
+### Frontier split by BFS level (AdjPrefix)
 
+![Frontier split by level (AdjPrefix)](results_log/plots/AdjPrefix_frontier_by_level.png)
+
+This figure reports the size of the BFS frontier at each level under the `AdjPrefix` policy, decomposed into GPU-processed and CPU-processed vertices.
+1. **Rapid early expansion with partial GPU coverage.**
+   The first two BFS levels exhibit a large frontier (peaking at ~500K vertices), with a non-trivial fraction processed on the GPU. This corresponds to traversal within the GPU-resident adjacency prefix.
+
+2. **Abrupt GPU frontier exhaustion.**
+   After approximately level 2, the GPU frontier collapses to zero despite the BFS continuing for many additional levels. From this point onward, all frontier expansion is handled exclusively by the CPU.
+
+This indicates that while the GPU subgraph contains a fixed budget of edges, its **topological coverage of the BFS wavefront is shallow** under `AdjPrefix`. Once the traversal escapes the induced adjacency prefix, no further GPU acceleration is possible.
 
 ---
+
+### GPU fraction of frontier by level (AdjPrefix)
+
+![GPU fraction by level (AdjPrefix)](results_log/plots/AdjPrefix_gpu_fraction_by_level.png)
+
+This plot normalizes the previous result by showing the **fraction of the frontier processed on the GPU** at each BFS level.
+* GPU participation starts at **100% at level 0**, as the root vertex necessarily lies within the GPU subgraph.
+* GPU share drops sharply at level 1 and becomes effectively **zero beyond level 2**.
+* No recovery in GPU utilization occurs at deeper levels.
+
+This behavior highlights a fundamental limitation of static subgraph selection: **GPU acceleration is front-loaded and short-lived**. The cooperative BFS effectively degenerates into a CPU-only traversal for the majority of the BFS depth under this policy.
+
+---
+
+## Runtime stability and policy comparison
+
+### Per-trial runtime variability
+
+![AdjPrefix and VertexPrefix trial times](results_log/plots/combined_trials_adj_vertex.png)
+
+* **VertexPrefix consistently outperforms AdjPrefix** across all trials.
+* Runtime variance is modest for both policies, indicating stable execution after warm-up.
+* `AdjPrefix` exhibits a higher absolute runtime and slightly larger variance, reflecting increased CPU-side work and deeper traversal.
+
+---
+
+## Comparison with CGgraph baselines
+
+### Median BFS runtime comparison
+
+![Median runtime comparison](results_log/plots/median_comparison.png)
+
+This figure compares median runtimes of RustHetGraph cooperative BFS against CGgraph CPU and GPU BFS implementations for both policies.
+
+Interpretation:
+
+* **CGgraph GPU BFS** is an order of magnitude faster than RustHetGraph, reflecting its tightly optimized, GPU-centric design with minimal CPU involvement.
+* **CGgraph CPU BFS** also outperforms RustHetGraph, indicating that the cooperative pipeline currently incurs overheads beyond pure traversal cost.
+* RustHetGraph shows a clear **policy-dependent performance gap**, with `AdjPrefix` substantially slower than `VertexPrefix`.
+
+These results confirm that RustHetGraph’s performance is not limited by raw GPU throughput but by **coordination overheads and incomplete GPU coverage of the traversal**.
+
+---
+
+## Discussion and takeaways
+
+### Policy-dependent traversal cost
+
+`AdjPrefix` reaches nearly **4× more vertices** and explores an order of magnitude more BFS levels than `VertexPrefix`. Consequently, runtime comparisons across policies do **not correspond to equal computational work**. The deeper traversal under `AdjPrefix` explains its higher runtime despite identical GPU edge budgets.
+
+### GPU utilization collapse
+
+Under `AdjPrefix`, GPU acceleration is effective only in the earliest BFS levels. Once the frontier exits the GPU-resident subgraph, traversal devolves into CPU-only execution with no mechanism for re-engaging the GPU. This exposes a key limitation of static, prefix-based subgraph selection.
+
+### Sources of overhead
+
+The cooperative pipeline is dominated by:
+* Kernel launch and synchronization costs,
+* CPU–GPU frontier partitioning,
+* Residual CPU expansion for vertices not covered by the GPU subgraph.
+
+As a result, overall performance is governed more by **orchestration overhead and policy effectiveness** than by GPU compute capability.
+
+### Key takeaway
+
+RustHetGraph successfully demonstrates a **configurable CPU–GPU cooperative BFS** with explicit policy control over GPU subgraph selection. While it does not yet approach CGgraph’s performance, the results clearly identify where optimization effort should be focused: improving GPU subgraph coverage across BFS depth, enabling dynamic repartitioning, and overlapping CPU and GPU work.
+
+
 
 ## Contributions by Each Team Member
 
 ### Shirley Qin
 
-* Implemented and iterated on the **cooperative BFS pipeline** (`src/alg/bfs_coop.rs`) and the main runner (`src/bin/gpu_cpu_bfs_coop.rs`).
-* Implemented/maintained BFS correctness checks and evaluation runners (e.g., `check_bfs_correctness`, compare binaries).
+* Implemented and iterated on the **cooperative BFS pipeline** and the main runner.
+* Implemented/maintained BFS correctness checks and evaluation runners
 * Integrated and debugged Rust-CUDA runtime flows (module loading, GPU buffers, frontier movement) across multiple test binaries.
-* Implemented core CSR graph utilities and supporting graph modules under `src/graph/` (CSR, stats, reorder/permutation helpers, I/O helpers).
+* Implemented core CSR graph utilities and supporting graph modules(CSR, stats, reorder/permutation helpers, I/O helpers).
 
 ### Guanqun Dong
 * Implemented baseline algorithms and early profiling/benchmark scaffolding.
@@ -411,7 +499,7 @@ Optional CGgraph CPU/GPU timing logs are parsed for reference comparison.
 ## Lessons Learned and Concluding Remarks
 
 1. **Correctness-first is essential in heterogeneous graph processing.**
-   Coordinating frontier expansion across CPU and GPU exposes subtle failure modes—duplicate visits, race conditions in frontier marking, and offset misalignment in partial adjacency expansion. Systematic correctness checks against CPU baselines were therefore mandatory before any performance evaluation.
+   Coordinating frontier expansion across CPU and GPU exposes subtle failure modes-duplicate visits, race conditions in frontier marking, and offset misalignment in partial adjacency expansion. Systematic correctness checks against CPU baselines were therefore mandatory before any performance evaluation.
 
 2. **Data movement and scheduling dominate earlier than expected.**
    While individual CUDA kernels achieved low per-level latency, overall runtime was strongly influenced by CPU–GPU transfers, frontier partitioning, and subgraph construction overheads. This reinforces that heterogeneous graph performance is primarily a *systems problem*, not just a kernel optimization problem.
@@ -427,12 +515,6 @@ RustHetGraph demonstrates a functional, reproducible heterogeneous BFS pipeline 
 
 ---
 
-## Video Slide Presentation
+### [Video Slide Presentation](https://drive.google.com/file/d/1qwxWpOC_2OQLKO1HSOyhyvfoIzzNa5sz/view?usp=sharing())
+### [Video Demo](https://drive.google.com/file/d/1dB4G-oPC6hwYYpAd7ZhOiN2A5k620UKV/view?usp=sharing)
 
-**URL:**
-
----
-
-## Video Demo
-
-**URL:**
