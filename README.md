@@ -9,7 +9,7 @@ A prototype project that explores **heterogeneous graph processing in Rust**, in
 ## Team Members
 
 * **Shirley Qin** - *Student #*: 1004555297 - Email: `shirley.qin@mail.utoronto.ca`
-* **Guanqun Dong** - *Student #*:  - Email: `guanqun.dong@mail.utoronto.ca`
+* **Guanqun Dong** - *Student #*: 1004525301 - Email: `guanqun.dong@mail.utoronto.ca`
 
 ---
 
@@ -491,7 +491,7 @@ RustHetGraph successfully demonstrates a **configurable CPU–GPU cooperative BF
 * Implemented core CSR graph utilities and supporting graph modules(CSR, stats, reorder/permutation helpers, I/O helpers).
 
 ### Guanqun Dong
-* Implemented baseline algorithms and early profiling/benchmark scaffolding.
+* Implemented baseline algorithms and early profiling/benchmark scaffolding.(graphloader branch)
 * Supported experimental setup and assisted in performance evaluation scripting / dataset preparation.
 
 ---
